@@ -70,7 +70,7 @@ export function SiteFooter() {
                 aria-label="LinkedIn"
                 size="small"
                 component="a"
-                href="https://www.linkedin.com/company/mensapingo-tech/?viewAsMember=true"
+                href="https://www.linkedin.com/company/mensapingo-tech/"
                 target="_blank"
                 rel="noopener noreferrer"
                 sx={{
