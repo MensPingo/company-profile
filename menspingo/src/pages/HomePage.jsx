@@ -12,6 +12,9 @@ import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
 import { motion } from 'framer-motion'
 import { Link as RouterLink } from 'react-router-dom'
 import { PageSection } from '../components/common/PageSection.jsx'
+import { HeaderSlider } from '../components/layout/HeaderSlider.jsx'
+// import { HeaderSlider } from '../components/HeaderSlider.jsx'
+
 
 const MotionBox = motion.create(Box)
 
@@ -141,6 +144,7 @@ const testimonials = [
 export function HomePage() {
   return (
     <>
+     <HeaderSlider />
       <PageSection
         eyebrow="AI-Powered IT Solutions Company"
         title="We Build AI-Powered Software Solutions for Modern Businesses"

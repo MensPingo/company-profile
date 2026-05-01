@@ -13,11 +13,12 @@ export function AppShell() {
       }}
     >
       <SiteHeader />
+
       <Box component="main" sx={{ flex: 1, pt: { xs: 8, md: 10 } }}>
         <Outlet />
       </Box>
+
       <SiteFooter />
     </Box>
   )
 }
-

@@ -266,20 +266,20 @@ export function ContactPage() {
                 <Stack spacing={2.25}>
                   <ContactInfo
                     label="General"
-                    value="info@mensapingotech.in"
-                    href="mailto:info@mensapingotech.in"
+                    value="info@menspingo.in"
+                    href="mailto:info@menspingo.in"
                   />
 
                   <ContactInfo
                     label="Contact"
-                    value="contact@mensapingotech.in"
-                    href="mailto:contact@mensapingotech.in"
+                    value="contact@menspingo.in"
+                    href="mailto:contact@menspingo.in"
                   />
 
                   <ContactInfo
                     label="Careers / Internship"
-                    value="hr@mensapingotech.in"
-                    href="mailto:hr@mensapingotech.in"
+                    value="hr@menspingo.in"
+                    href="mailto:hr@menspingo.in"
                   />
 
                   <ContactInfo label="Phone" value="+91 91061 40115" href="tel:+919106140115" />

@@ -1,14 +1,8 @@
-import { Box, Button, Card, CardContent, Chip, Divider, Grid, Stack, Typography } from '@mui/material'
-import VerifiedUserIcon from '@mui/icons-material/VerifiedUser'
-import SecurityIcon from '@mui/icons-material/Security'
-import VisibilityIcon from '@mui/icons-material/Visibility'
-import ScheduleIcon from '@mui/icons-material/Schedule'
-import RocketLaunchIcon from '@mui/icons-material/RocketLaunch'
+import { Box, Button, Card, CardContent, Chip, Grid, Stack, Typography } from '@mui/material'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import { Link as RouterLink } from 'react-router-dom'
 import { PageSection } from '../components/common/PageSection.jsx'
 
-// Core values data remains unchanged
 const coreValues = [
   {
     title: 'Client-first approach',
@@ -28,16 +22,6 @@ const coreValues = [
   },
 ]
 
-// Trust elements remain unchanged
-const trustElements = [
-  { title: 'Quality', icon: <VerifiedUserIcon fontSize="small" /> },
-  { title: 'Security', icon: <SecurityIcon fontSize="small" /> },
-  { title: 'Transparency', icon: <VisibilityIcon fontSize="small" /> },
-  { title: 'Timely delivery', icon: <ScheduleIcon fontSize="small" /> },
-  { title: 'Scalable solutions', icon: <RocketLaunchIcon fontSize="small" /> },
-]
-
-// Team data remains unchanged
 const team = [
   {
     name: 'Founder / Backend Lead',
@@ -57,7 +41,6 @@ const team = [
   },
 ]
 
-// Reusable premium card style for consistent visual rhythm
 const premiumCardSx = {
   height: '100%',
   borderRadius: 4,
@@ -73,7 +56,6 @@ const premiumCardSx = {
   },
 }
 
-// Reusable text style for readable paragraphs
 const paragraphSx = {
   mt: 1,
   color: 'text.secondary',
@@ -81,7 +63,6 @@ const paragraphSx = {
   fontSize: { xs: '0.95rem', md: '1rem' },
 }
 
-// Reusable section title style
 const cardTitleSx = {
   fontWeight: 950,
   letterSpacing: -0.25,
@@ -92,7 +73,6 @@ export function AboutPage() {
   return (
     <Box
       sx={{
-        // Page level visual polish with soft background
         overflowX: 'hidden',
         background:
           'radial-gradient(circle at 10% 5%, rgba(37, 99, 235, 0.08), transparent 30%), radial-gradient(circle at 90% 15%, rgba(124, 58, 237, 0.08), transparent 28%)',
@@ -113,7 +93,6 @@ export function AboutPage() {
             boxShadow: '0 28px 90px rgba(37, 99, 235, 0.12)',
             background:
               'linear-gradient(135deg, rgba(21,94,239,0.12) 0%, rgba(124,58,237,0.09) 55%, rgba(6,182,212,0.10) 100%)',
-            // Decorative blur element for premium hero-card look
             '&::before': {
               content: '""',
               position: 'absolute',
@@ -348,7 +327,7 @@ export function AboutPage() {
             'linear-gradient(135deg, rgba(21,94,239,0.055) 0%, rgba(6,182,212,0.045) 100%)',
         }}
       >
-        <Grid container spacing={2.5}>
+        <Stack spacing={2}>
           {[
             {
               title: 'Requirement discussion',
@@ -367,33 +346,29 @@ export function AboutPage() {
               desc: 'We test key flows, fix issues, deploy the project, and provide support for improvements.',
             },
           ].map((s, index) => (
-            <Grid key={s.title} item xs={12} sm={6} md={3}>
-              <Card variant="outlined" sx={premiumCardSx}>
-                <CardContent sx={{ p: { xs: 2.5, md: 3 } }}>
-                  <Box
-                    sx={{
-                      width: 42,
-                      height: 42,
-                      borderRadius: 2.5,
-                      display: 'grid',
-                      placeItems: 'center',
-                      mb: 1.5,
-                      fontWeight: 950,
-                      color: 'primary.main',
-                      bgcolor: 'rgba(37, 99, 235, 0.09)',
-                      border: '1px solid rgba(37, 99, 235, 0.16)',
-                    }}
-                  >
-                    {String(index + 1).padStart(2, '0')}
-                  </Box>
-
-                  <Typography sx={cardTitleSx}>{s.title}</Typography>
-                  <Typography sx={paragraphSx}>{s.desc}</Typography>
-                </CardContent>
-              </Card>
-            </Grid>
+            <Box key={s.title}>
+              <Typography
+                sx={{
+                  fontWeight: 800,
+                  fontSize: { xs: '1rem', md: '1.05rem' },
+                  color: '#0f172a',
+                }}
+              >
+                {index + 1}. {s.title}
+              </Typography>
+              <Typography
+                sx={{
+                  mt: 0.6,
+                  color: '#475569',
+                  fontSize: { xs: '0.94rem', md: '0.98rem' },
+                  lineHeight: 1.8,
+                }}
+              >
+                {s.desc}
+              </Typography>
+            </Box>
           ))}
-        </Grid>
+        </Stack>
       </PageSection>
 
       <PageSection
@@ -401,42 +376,26 @@ export function AboutPage() {
         title="Trust elements"
         subtitle="We focus on the foundations that make clients confident: quality, security, transparency, timely delivery, and scalable solutions."
       >
-        <Grid container spacing={2.5}>
-          {trustElements.map((t) => (
-            <Grid key={t.title} item xs={12} sm={6} md={4}>
-              <Card variant="outlined" sx={premiumCardSx}>
-                <CardContent sx={{ p: { xs: 2.5, md: 3 } }}>
-                  <Stack direction="row" spacing={1.5} alignItems="center">
-                    <Stack
-                      sx={{
-                        width: 46,
-                        height: 46,
-                        borderRadius: 2.5,
-                        display: 'grid',
-                        placeItems: 'center',
-                        background:
-                          'linear-gradient(135deg, rgba(37,99,235,0.13), rgba(6,182,212,0.11))',
-                        color: 'primary.main',
-                        border: '1px solid rgba(37, 99, 235, 0.14)',
-                      }}
-                    >
-                      {t.icon}
-                    </Stack>
-                    <Typography sx={cardTitleSx}>{t.title}</Typography>
-                  </Stack>
-
-                  <Divider sx={{ my: 2.25, borderColor: 'rgba(148, 163, 184, 0.28)' }} />
-
-                  <Typography color="text.secondary" sx={{ lineHeight: 1.75 }}>
-                    At MensaPingo Tech, we believe trust is built through clear communication, clean execution, secure
-                    development, and honest delivery. Our goal is to create software that looks professional, works
-                    reliably, and can scale as your business grows.
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
+        <Stack spacing={1.5}>
+          {[
+            'Quality — clean code, reliable delivery, and maintainable structure.',
+            'Security — safe development practices for APIs, authentication, and data handling.',
+            'Transparency — clear communication, realistic timelines, and regular updates.',
+            'Timely delivery — practical execution with milestone-based progress.',
+            'Scalable solutions — software that can grow with your business needs.',
+          ].map((item) => (
+            <Typography
+              key={item}
+              sx={{
+                color: '#475569',
+                fontSize: { xs: '0.95rem', md: '1rem' },
+                lineHeight: 1.8,
+              }}
+            >
+              • {item}
+            </Typography>
           ))}
-        </Grid>
+        </Stack>
       </PageSection>
 
       <PageSection
