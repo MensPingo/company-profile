@@ -43,6 +43,10 @@ const contactCardSx = {
 export function ContactPage() {
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState('')
+  const [submitting, setSubmitting] = useState(false)
+
+  const apiBase = (import.meta.env.VITE_API_BASE_URL ?? '').replace(/\\/$/, '')
+  const contactEndpoint = apiBase ? `${apiBase}/api/v1/contact` : '/api/v1/contact'
 
   return (
     <Box
@@ -99,19 +103,56 @@ export function ContactPage() {
                   sx={{ mt: 3 }}
                   onSubmit={(e) => {
                     e.preventDefault()
+
+                    if (submitting) return
+
                     setError('')
+                    setSubmitted(false)
+                    setSubmitting(true)
 
-                    const form = new FormData(e.currentTarget)
-                    const name = String(form.get('name') ?? '').trim()
-                    const email = String(form.get('email') ?? '').trim()
-                    const message = String(form.get('message') ?? '').trim()
+                    const run = async () => {
+                      const form = new FormData(e.currentTarget)
+                      const name = String(form.get('name') ?? '').trim()
+                      const email = String(form.get('email') ?? '').trim()
+                      const message = String(form.get('message') ?? '').trim()
 
-                    if (!name || !email || !message) {
-                      setError('Please fill in name, email, and message.')
-                      return
+                      if (!name || !email || !message) {
+                        setError('Please fill in name, email, and message.')
+                        return
+                      }
+
+                      const payload = {
+                        name,
+                        company: String(form.get('company') ?? '').trim() || undefined,
+                        email,
+                        phone: String(form.get('phone') ?? '').trim() || undefined,
+                        serviceNeeded: String(form.get('service') ?? '').trim() || undefined,
+                        budgetRange: String(form.get('budget') ?? '').trim() || undefined,
+                        message,
+                        website: String(form.get('website') ?? '').trim() || undefined,
+                      }
+
+                      const res = await fetch(contactEndpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload),
+                      })
+
+                      if (!res.ok) {
+                        throw new Error('Request failed')
+                      }
+
+                      setSubmitted(true)
+                      e.currentTarget.reset()
                     }
 
-                    setSubmitted(true)
+                    run()
+                      .catch(() => {
+                        setError('Something went wrong. Please try again.')
+                      })
+                      .finally(() => {
+                        setSubmitting(false)
+                      })
                   }}
                 >
                   {submitted ? (
@@ -135,6 +176,14 @@ export function ContactPage() {
                     <TextField label="Email" name="email" type="email" required fullWidth sx={fieldSx} />
                     <TextField label="Phone (India)" name="phone" fullWidth sx={fieldSx} />
                   </Stack>
+
+                  <TextField
+                    label="Website"
+                    name="website"
+                    autoComplete="off"
+                    tabIndex={-1}
+                    sx={{ display: 'none' }}
+                  />
 
                   <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
                     <TextField
@@ -182,6 +231,7 @@ export function ContactPage() {
                       type="submit"
                       variant="contained"
                       endIcon={<ArrowForwardIcon />}
+                      disabled={submitting}
                       sx={{
                         minHeight: 52,
                         px: 3,
@@ -204,7 +254,7 @@ export function ContactPage() {
                     </Button>
 
                     <Typography variant="body2" sx={{ color: '#64748b', lineHeight: 1.6 }}>
-                      This form is ready for backend/email integration next.
+                      {submitting ? 'Sending…' : 'We’ll reply with next steps.'}
                     </Typography>
                   </Stack>
                 </Stack>
